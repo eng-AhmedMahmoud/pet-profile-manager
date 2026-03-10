@@ -7,12 +7,17 @@ import React, {
   type ReactNode,
 } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { v4 as uuidv4 } from 'uuid';
 
 import type { Pet, PetFormData } from '../types';
 import { MOCK_PETS, AVATAR_COLORS } from '../constants';
 
 const STORAGE_KEY = 'pets';
+
+const generateId = (): string => {
+  const timestamp = Date.now().toString(36);
+  const random = Math.random().toString(36).substring(2, 10);
+  return `${timestamp}-${random}`;
+};
 
 interface PetContextType {
   pets: Pet[];
@@ -65,7 +70,7 @@ export const PetProvider = ({ children }: { children: ReactNode }) => {
         AVATAR_COLORS[Math.floor(Math.random() * AVATAR_COLORS.length)];
 
       const newPet: Pet = {
-        id: uuidv4(),
+        id: generateId(),
         name: data.name,
         species: data.species,
         breed: data.breed,
@@ -76,41 +81,47 @@ export const PetProvider = ({ children }: { children: ReactNode }) => {
         updatedAt: now,
       };
 
-      const updatedPets = [newPet, ...pets];
-      setPets(updatedPets);
-      savePetsToStorage(updatedPets);
+      setPets(prev => {
+        const updatedPets = [newPet, ...prev];
+        savePetsToStorage(updatedPets);
+        return updatedPets;
+      });
     },
-    [pets],
+    [],
   );
 
   const updatePet = useCallback(
     (id: string, data: PetFormData) => {
-      const updatedPets = pets.map(pet =>
-        pet.id === id
-          ? {
-              ...pet,
-              name: data.name,
-              species: data.species,
-              breed: data.breed,
-              age: data.age,
-              notes: data.notes,
-              updatedAt: new Date().toISOString(),
-            }
-          : pet,
-      );
-      setPets(updatedPets);
-      savePetsToStorage(updatedPets);
+      setPets(prev => {
+        const updatedPets = prev.map(pet =>
+          pet.id === id
+            ? {
+                ...pet,
+                name: data.name,
+                species: data.species,
+                breed: data.breed,
+                age: data.age,
+                notes: data.notes,
+                updatedAt: new Date().toISOString(),
+              }
+            : pet,
+        );
+        savePetsToStorage(updatedPets);
+        return updatedPets;
+      });
     },
-    [pets],
+    [],
   );
 
   const deletePet = useCallback(
     (id: string) => {
-      const updatedPets = pets.filter(pet => pet.id !== id);
-      setPets(updatedPets);
-      savePetsToStorage(updatedPets);
+      setPets(prev => {
+        const updatedPets = prev.filter(pet => pet.id !== id);
+        savePetsToStorage(updatedPets);
+        return updatedPets;
+      });
     },
-    [pets],
+    [],
   );
 
   const getPetById = useCallback(
