@@ -40,7 +40,7 @@ src/
 | React Navigation | Native stack navigation with typed routes |
 | React Context API | State management |
 | AsyncStorage | Local data persistence |
-| uuid | Unique ID generation |
+| EAS Update | Over-the-air preview distribution |
 
 ## Design Decisions
 
@@ -79,6 +79,15 @@ Then press `i` for iOS simulator, `a` for Android emulator, or scan QR with Expo
 - **Pet List** - Main screen with FlatList of pet cards, add button, delete confirmation
 - **Add/Edit Pet** - Reusable form with species picker, breed suggestions, validation
 - **Pet Detail** - Full pet info with hero avatar, details card, notes, dates, edit/delete actions
+
+## Live Preview
+
+You can try the app without installing it from the stores:
+
+1. Install **[Expo Go](https://expo.dev/go)** on your phone (free on the App Store and Google Play)
+2. Open the [EAS Dashboard](https://expo.dev/accounts/charlez/projects/pet-profile-manager/updates/4487e9b1-c6c2-4a8f-a843-7f25a334484d) link
+3. Scan the QR code shown on the dashboard with your phone camera
+4. The app will open directly in Expo Go — no build or download required
 
 ## Bonus Features
 
