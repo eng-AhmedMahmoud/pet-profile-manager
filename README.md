@@ -17,6 +17,9 @@ A clean, simple mobile application where users can manage their pets' profiles. 
 - Empty state when no pets exist
 - Clean navigation with slide animations
 
+## Demo video
+https://vimeo.com/1172041465?share=copy&fl=sv&fe=ci
+
 ## Architecture
 
 ```
