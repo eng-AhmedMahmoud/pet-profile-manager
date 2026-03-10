@@ -27,6 +27,18 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "79f0499b-8eaf-457a-ad4b-be5d695a511f"
+      }
+    },
+    "owner": "charlez",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/79f0499b-8eaf-457a-ad4b-be5d695a511f"
     }
   }
 }
